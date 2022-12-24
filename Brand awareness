@@ -1,0 +1,113 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+nov = pd.read_csv("C:\\Users\\Lenovo\\Downloads\\Data-Nov.csv", delimiter = ";", index_col='ID')
+nov.head(10)
+
+print(nov.index)
+print(nov.columns)
+print(nov.shape)
+
+
+frequency_nov = nov.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+frequency_nov
+
+print(frequency_nov['Q2_01'])
+
+dec = pd.read_csv("C:\\Users\\Lenovo\\Downloads\\Data-Dec.csv", delimiter = ";", index_col='ID')
+dec.head(10)
+
+print(dec.shape)
+
+frequency_dec = dec.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+frequency_dec
+
+chi = frequency_nov['Q2_01'], frequency_dec['Q2_01']
+chi
+
+cross= pd.crosstab(frequency_nov['Q2_01'], frequency_dec['Q2_01'])
+cross
+from scipy.stats import chi2_contingency
+stat, p, dof, expected = chi2_contingency(cross)
+print(stat, p, dof, expected)
+alpha = 0.05
+print("p value is " + str(p))
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
+cross= pd.crosstab(frequency_nov['Q2_02'], frequency_dec['Q2_02'])
+cross
+from scipy.stats import chi2_contingency
+stat, p, dof, expected = chi2_contingency(cross)
+print(stat, p, dof, expected)
+alpha = 0.05
+print("p value is " + str(p))
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
+cross= pd.crosstab(frequency_nov['Q2_03'], frequency_dec['Q2_03'])
+cross
+from scipy.stats import chi2_contingency
+stat, p, dof, expected = chi2_contingency(cross)
+print(stat, p, dof, expected)
+alpha = 0.05
+print("p value is " + str(p))
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
+cross= pd.crosstab(frequency_nov['Q2_04'], frequency_dec['Q2_04'])
+cross
+from scipy.stats import chi2_contingency
+stat, p, dof, expected = chi2_contingency(cross)
+print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
+alpha = 0.05
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
+bar_nov = frequency_nov.plot(kind = 'bar', rot = 0, stacked = True)
+bar_dec = frequency_dec.plot(kind = 'bar', rot = 0, stacked = True)
+
+
+chi_1= pd.crosstab(frequency_nov['Q2_04'], frequency_dec['Q2_04'])
+chi_1
+stat, p, dof, expected = chi2_contingency(chi_1)
+print(stat, p, dof, expected)
+alpha = 0.05
+print("p value is " + str(p))
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
+chi_2= pd.crosstab(frequency_nov['Q2_05'], frequency_dec['Q2_05'])
+chi_2
+stat, p, dof, expected = chi2_contingency(chi_2)
+print(stat, p, dof, expected)
+alpha = 0.05
+print("p value is " + str(p))
+if p <= alpha:
+    
+    print('Dependent (reject H0)')
+    
+else:
+    print('Independent (H0 holds true)')
+
