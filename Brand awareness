@@ -8,7 +8,7 @@ nov.head(10)
 print(nov.shape)
 
 #Frequency table for november data
-frequency_nov = nov.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+frequency_nov = nov.apply(pd.Series.value_counts)
 frequency_nov
 
 dec = pd.read_csv("C:\\Users\\Lenovo\\Downloads\\Data-Dec.csv", delimiter = ";", index_col='ID')
@@ -17,8 +17,16 @@ dec.head(10)
 print(dec.shape)
 
 #Frequency table for december data
-frequency_dec = dec.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+frequency_dec = dec.apply(pd.Series.value_counts)
 frequency_dec
+
+print('Frequency table for november data with ratio')
+ratio_nov = nov.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+ratio_nov
+
+print('Frequency table for december data with ratio')
+ratio_dec = dec.apply(pd.Series.value_counts, normalize = 'columns').round(3)*100
+ratio_dec
 
 #Bar charts for comparison
 bar_nov = frequency_nov.plot(kind = 'bar', rot = 0, stacked = True, title = "November data")
@@ -92,11 +100,7 @@ stat, p, dof, expected = chi2_contingency(chi_6)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
-    print("Dependent (reject H0)")
-    
-else:
-    print("Independent (H0 can't be rejected)")    
+     
     print("Dependent (reject H0)")
     
 else:
@@ -108,7 +112,7 @@ stat, p, dof, expected = chi2_contingency(chi_7)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
+     
     print("Dependent (reject H0)")
     
 else:
@@ -120,7 +124,6 @@ stat, p, dof, expected = chi2_contingency(chi_8)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
      
     print("Dependent (reject H0)")
     
@@ -133,7 +136,7 @@ stat, p, dof, expected = chi2_contingency(chi_9)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
+     
     print("Dependent (reject H0)")
     
 else:
@@ -145,7 +148,7 @@ stat, p, dof, expected = chi2_contingency(chi_10)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
+     
     print("Dependent (reject H0)")
     
 else:
@@ -157,11 +160,11 @@ stat, p, dof, expected = chi2_contingency(chi_11)
 print("statistical value: ", stat, "|p value: ", p, "|degrees of freedom: ", dof)
 alpha = 0.05
 if p <= alpha:
-    
+     
     print("Dependent (reject H0)")
     
 else:
     print("Independent (H0 can't be rejected)")
 
-# Based on chi squared test results and bar charts, there is no significant difference in brand awareness in 
-# november and december.
+print('Based on chi squared test results and bar charts, there is no significant difference in brand awareness in november and december.')
+
