@@ -16,6 +16,9 @@ N_frequency <- as.data.frame(N_frequency)
 N_table <- merge(N_frequency,N_share, by="row.names")
 View(N_table)
 
+#difference between two highest scoring brands
+chisq.test(november$Q2_01, november$Q2_03, correct=FALSE)
+
 #frequency table and share for december
 december<- read_excel(file.choose())
 View(december)
@@ -29,6 +32,9 @@ D_share <- as.data.frame(D_share)
 D_frequency <- as.data.frame(D_frequency)
 D_table <- merge(D_frequency, D_share, by="row.names")
 View(D_table)
+
+#difference between two highest scoring brands
+chisq.test(december$Q2_01, december$Q2_03, correct=FALSE)
 
 #Attribute description for november
 november <- read_excel(file.choose())
