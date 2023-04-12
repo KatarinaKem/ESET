@@ -1,0 +1,79 @@
+library(readxl)
+library(tidyverse)
+library(scales)
+
+#frequency table and share for november
+november <- read_excel(file.choose())
+View(november)
+
+N_brands <-c("Q2_01", "Q2_02","Q2_03","Q2_04","Q2_05", "Q2_06")
+N_frequency <- t(apply(november[N_brands], 2, table))
+N_sum <- colSums(november[N_brands])
+N_share <- (N_sum / 1039)
+N_share <-scales::percent(N_share)
+N_share <- as.data.frame(N_share)
+N_frequency <- as.data.frame(N_frequency)
+N_table <- merge(N_frequency,N_share, by="row.names")
+View(N_table)
+
+#frequency table and share for december
+december<- read_excel(file.choose())
+View(december)
+
+D_brands <- c("Q2_01", "Q2_02","Q2_03","Q2_04","Q2_05", "Q2_06")
+D_frequency <-t(apply(december[D_brands], 2, table))
+D_sum <- colSums(december[D_brands])
+D_share <- (D_sum / 1058)
+D_share <- scales::percent(D_share)
+D_share <- as.data.frame(D_share)
+D_frequency <- as.data.frame(D_frequency)
+D_table <- merge(D_frequency, D_share, by="row.names")
+View(D_table)
+
+#Attribute description for november
+november <- read_excel(file.choose())
+
+N_attributes <- c("Q3_01", "Q3_02", "Q3_03", "Q3_04")
+sum <- colSums(november[N_attributes])
+View(sum)
+summary(november[N_attributes])
+     
+november %>%
+  select(Q3_01, Q3_02, Q3_03, Q3_04) %>% 
+  ggplot(aes(Q3_01))+geom_histogram(bins=9, fill = 'lightblue', alpha=0.8)
+ggplot(november,aes(Q3_02))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_03))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
+
+
+#Attribute description for december
+december <- read_excel(file.choose())
+
+D_attributes <- c("Q3_01", "Q3_02", "Q3_03", "Q3_04")
+D_sum <- colSums(december[D_attributes])
+View(D_sum)
+summary(december[D_attributes])
+
+ggplot(december,aes(Q3_01))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_02))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_03))+geom_histogram(bins=9, fill = 'lightblue')
+ggplot(november,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
+
+#attributes differences in november and december
+months <- read_excel(file.choose())
+View(months)  
+
+attribute01 <- chisq.test(months$NOVQ3_01,
+                       months$DECQ3_01, correct = FALSE)
+attribtue02 <- chisq.test(months$NOVQ3_02,
+                       months$DECQ3_02, correct = FALSE)
+attribute03 <- chisq.test(months$NOVQ3_03,
+                       months$DECQ3_03, correct = FALSE)
+attribute04 <- chisq.test(months$NOVQ3_04,
+                       months$DECQ3_04, correct = FALSE)
+
+attribute01
+attribute02
+attribute03
+attribute04
