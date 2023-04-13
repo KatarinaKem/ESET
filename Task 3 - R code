@@ -46,12 +46,14 @@ summary(november[N_attributes])
      
 november %>%
   select(Q3_01, Q3_02, Q3_03, Q3_04) %>% 
-  ggplot(aes(Q3_01))+geom_histogram(bins=9, fill = 'lightblue', alpha=0.8)
+  ggplot(aes(Q3_01))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(november,aes(Q3_02))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(november,aes(Q3_03))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(november,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(november,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
 
+#difference between highest and lowest rated attribute
+chisq.test(months$NOVQ3_03, months$NOVQ3_04, correct=FALSE)
 
 #Attribute description for december
 december <- read_excel(file.choose())
@@ -65,6 +67,9 @@ ggplot(december,aes(Q3_01))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(december,aes(Q3_02))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(december,aes(Q3_03))+geom_histogram(bins=9, fill = 'lightblue')
 ggplot(december,aes(Q3_04))+geom_histogram(bins=9, fill = 'lightblue')
+
+#difference between highest and lowest rated attribute
+chisq.test(months$DECQ3_02, months$DECQ3_03, correct=FALSE)
 
 #attributes differences in november and december
 months <- read_excel(file.choose())
